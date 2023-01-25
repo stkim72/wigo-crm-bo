@@ -25,11 +25,11 @@
                 <dl>
                     <dt>아이디</dt>
                     <dd>
-                        <input type="text" class="it" data-enter="signIn" id="loginId" name="loginId" class="form-control" placeholder="id" value="" >
+                        <input type="text" class="it" data-enter="signIn" id="loginId" name="loginId" class="form-control" placeholder="id" value="admin" >
                     </dd>
                     <dt>비밀번호</dt>
                     <dd>
-                        <input type="password" data-enter="signIn" id="loginPwd" name="loginPwd" class="it">
+                        <input type="password" data-enter="signIn" id="loginPwd" name="loginPwd" class="it" value="1qa@WS">
                     </dd>
                 </dl>
                 <div class="save">
