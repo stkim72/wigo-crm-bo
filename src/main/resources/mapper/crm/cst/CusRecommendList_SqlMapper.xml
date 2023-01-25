@@ -12,7 +12,7 @@
                     , A.RCMD_STOR_NO                    /* 추천매장번호 */
                     , A.RCMD_TYPE_CD                    /* 추천유형코드 */
                     , B.CUST_NM                        /* 추천인고객명 */
-                    , DAMO.DECRYPT_VAR_B64('AES_256',B.MPHON_NO,'') AS MPHON_NO                        /* 추천인고객전화번호 */
+                    , B.MPHON_NO AS MPHON_NO                        /* 추천인고객전화번호 */
                     , B.MSHIP_GRADE_CD                /* 추천인고객등급코드 */
                     , (SELECT STOR_NM FROM CRM_STOR_BAS WHERE STOR_NO = A.RCMD_STOR_NO) AS RCMD_STOR_NM        /* 추천매장명 */
                     , A.AMDR_ID                        /* 수정자ID */

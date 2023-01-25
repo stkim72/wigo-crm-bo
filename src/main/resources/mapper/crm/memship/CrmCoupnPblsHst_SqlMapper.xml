@@ -125,7 +125,7 @@
                     , A.USE_STOR_NO						/*사용매장*/
                     , (SELECT STOR_NM FROM CRM_STOR_BAS WHERE STOR_NO = A.USE_STOR_NO AND STOR_NO IS NOT NULL ) AS USE_STOR_NM
                     , B.CUST_NM /* 고객성명 */
-                    <!-- , REGEXP_REPLACE(DAMO.DECRYPT_VAR_B64('AES_256',B.MPHON_NO,''), '(.{3})(.+)(.{4})', '\1-****-\3') MPHON_NO --> <!-- 속도이슈 -->
+                    <!-- , REGEXP_REPLACE(B.MPHON_NO, '(.{3})(.+)(.{4})', '\1-****-\3') MPHON_NO --> <!-- 속도이슈 -->
                     , '010-****-' || B.MPHON_BK_DGT_NO MPHON_NO 
                     , (SELECT COMN_CD_NM FROM CRM_COMN_CD_BAS D WHERE D.TOP_COMN_CD = 'MB080' and D.COMN_CD = C.COUPN_TYPE_CD ) COUPN_TYPE_CD_NM    /* 쿠폰리스트명   */ 
   
@@ -155,7 +155,7 @@
                   AND B.CUST_NM   = #{custNm}
         </if>
         <if test="mphonNo != null and mphonNo != ''">
-                  AND B.MPHON_NO        =       DAMO.ENCRYPT_VAR_B64('AES_256',#{mphonNo},'')
+                  AND B.MPHON_NO        =       #{mphonNo}
         </if>
         <if test="mshipCoupnBasNo != null and mshipCoupnBasNo != ''">
                   AND A.MSHIP_COUPN_BAS_NO=       #{mshipCoupnBasNo}

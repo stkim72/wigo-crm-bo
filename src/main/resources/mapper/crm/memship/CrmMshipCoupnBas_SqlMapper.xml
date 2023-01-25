@@ -634,12 +634,12 @@
 				, CST.BIRTHDAY
 				, CST.FORN_YN
 				, '010-****-' || CST.MPHON_BK_DGT_NO MPHON_NO
-				<!-- , REGEXP_REPLACE(DAMO.DECRYPT_VAR_B64('AES_256',CST.MPHON_NO,''), '(.{3})(.*+)(.{4})', '\1-****-\3') MPHON_NO  -->
-				<!-- , DAMO.DECRYPT_VAR_B64('AES_256',CST.EMAIL_ADDR,'') EMAIL_ADDR -->	<!-- 속도이슈 -->
+				<!-- , REGEXP_REPLACE(CST.MPHON_NO, '(.{3})(.*+)(.{4})', '\1-****-\3') MPHON_NO  -->
+				<!-- , CST.EMAIL_ADDR EMAIL_ADDR -->	<!-- 속도이슈 -->
 				, CST.CUST_STATUS_CD
 				, CST.ZIP_CD
-				<!-- , DAMO.DECRYPT_VAR_B64('AES_256',CST.ADDR_1_CTNTS,'') ADDR_1_CTNTS -->	<!-- 속도이슈 -->
-				<!-- , DAMO.DECRYPT_VAR_B64('AES_256',CST.ADDR_2_CTNTS,'') ADDR_2_CTNTS --> <!-- 속도이슈 -->
+				<!-- , CST.ADDR_1_CTNTS ADDR_1_CTNTS -->	<!-- 속도이슈 -->
+				<!-- , CST.ADDR_2_CTNTS ADDR_2_CTNTS --> <!-- 속도이슈 -->
 				, CST.MARRY_YN
 				, CST.MSHIP_GRADE_CD
 				<!-- , (SELECT COUNT(*) FROM CRM_COUPN_PBLS_HST WHERE ITG_CUST_NO = CST.ITG_CUST_NO AND MSHIP_COUPN_BAS_NO = #{mshipCoupnBasNo} ) AS COUPN_CNT --> <!-- 속도이슈 -->
@@ -1299,7 +1299,7 @@
 			    , C.CUST_NM
 			    , C.MPHON_NO
                 , A.REGR_ID
-			    <!-- , DAMO.DECRYPT_VAR_B64('AES_256', C.MPHON_NO , '') MPHON_NO --> <!-- 복호화 데이터 많아서 제거 -->
+			    <!-- ,  C.MPHON_NO  MPHON_NO --> <!-- 복호화 데이터 많아서 제거 -->
 			    , B.ADMT_AMT
 			    , B.MSHP_GRADE_CD
 			    , (SELECT STOR_NM FROM CRM_STOR_BAS WHERE STOR_NO = B.STOR_NO) AS STOR_NM
@@ -1590,7 +1590,7 @@
 							AND ITG_CUST_NO = #{itgCustNo}
 						</if>
 						<if test="mphonNo != null and mphonNo != ''">
-				            AND MPHON_NO        =       DAMO.ENCRYPT_VAR_B64('AES_256',#{mphonNo},'')
+				            AND MPHON_NO        =       #{mphonNo}
 				        </if>
 					</trim>
 				 <if test="(dealDaySta != null and dealDaySta != '') or (dealDayEnd != null and dealDayEnd != '') or (payTotAmtSta != null and payTotAmtSta != '') or (payTotAmtEnd != null and payTotAmtEnd != '')">
@@ -1755,7 +1755,7 @@
 						AND ITG_CUST_NO = #{itgCustNo}
 					</if>
 					<if test="mphonNo != null and mphonNo != ''">
-			            AND MPHON_NO        =       DAMO.ENCRYPT_VAR_B64('AES_256',#{mphonNo},'')
+			            AND MPHON_NO        =       #{mphonNo}
 			        </if>
 				</trim>
 			 <if test="(dealDaySta != null and dealDaySta != '') or (dealDayEnd != null and dealDayEnd != '') or (payTotAmtSta != null and payTotAmtSta != '') or (payTotAmtEnd != null and payTotAmtEnd != '')">
@@ -2165,8 +2165,8 @@
 	<select id="getCustPhonDecrypt" resultType="EzMap">
 		SELECT 
 			ITG_CUST_NO
-			, DAMO.DECRYPT_VAR_B64('AES_256', MPHON_NO, '') AS MPHON_NO
-			, DAMO.DECRYPT_VAR_B64('AES_256', EMAIL_ADDR, '') AS EMAIL_ADDR
+			,  MPHON_NO AS MPHON_NO
+			,  EMAIL_ADDR AS EMAIL_ADDR
 			FROM CRM_CUST_BAS 
 			<trim prefix="WHERE" prefixOverrides="AND |OR ">  
 	             <if test="custHp != null and custHp != ''">
@@ -2455,8 +2455,8 @@
 			    , B.COUPN_PBLS_BAS_NO
 			    , B.ITG_CUST_NO
 			    , C.CUST_NM
-			    , DAMO.DECRYPT_VAR_B64('AES_256', C.MPHON_NO , '') MPHON_NO
-			    , DAMO.DECRYPT_VAR_B64('AES_256', C.EMAIL_ADDR, '') AS EMAIL_ADDR
+			    ,  C.MPHON_NO  MPHON_NO
+			    ,  C.EMAIL_ADDR AS EMAIL_ADDR
 			    , B.USE_YN AS ISSU_USE_YN
 			    , CASE
                     WHEN A.USE_STD_DAY_COND_CD = 'Y' THEN TO_CHAR(B.REG_DT + A.COUPN_USE_POSS_DAY , 'YYYY-MM-DD')

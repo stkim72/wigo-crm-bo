@@ -18,15 +18,15 @@ spring:
       log-maximum-pool-size: 2
     # Inmemory DB
     log-driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    log-url: jdbc:log4jdbc:oracle:thin:@172.23.1.91:8122:DCRMDB
-    log-username: crmown
-    log-password: crmown
+    log-url: jdbc:log4jdbc:oracle:thin:@S3.MOARA.ORG:6030:ORCL
+    log-username: CERAGEM
+    log-password: ceragem
     #ENC(lrAuYaCIEFzsy9dbyqMYcw==)
 
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    url: jdbc:log4jdbc:oracle:thin:@172.23.1.91:8122:DCRMDB
-    username: crmown
-    password: crmown
+    url: jdbc:log4jdbc:oracle:thin:@S3.MOARA.ORG:6030:ORCL
+    username: CERAGEM
+    password: ceragem
     #ENC(lrAuYaCIEFzsy9dbyqMYcw==)
 #    log-driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
 #    log-url: jdbc:log4jdbc:oracle:thin:@192.168.70.26:1521:XE
@@ -39,8 +39,7 @@ spring:
 #    password: CERAGEM_CRM
 
   api:
-#    base-url: http://localhost:8082
-    base-url: https://dev-api.ceragem.com
+    base-url: http://localhost:8052
     token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwidXNlckNkIjoiU1lTVEVNIiwic3lzdGVtQ2QiOiJDUk0iLCJleHAiOjE5NjUwODQzMjF9.xvMWFRhGe9Jk35rYxPdxRoQne7f7RKzKIpQA7xrfDUM      
     url:
       token-url: /api/v1.0/token/CRM
@@ -100,7 +99,7 @@ logging:
     org.springframework.web: INFO
     
 server:
-  port: 8081
+  port: 8051
   servlet:    
     session: 
       timeout: 1800

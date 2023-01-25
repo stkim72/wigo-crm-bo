@@ -35,14 +35,14 @@
                     , A.FORN_YN                    /*외국인여부        */
                     , A.REP_NM                    /*대표명        */
                     --, '010-****-' || A.MPHON_BK_DGT_NO MPHON_NO                    /*이동전화번호        */
-                    , DAMO.DECRYPT_VAR_B64('AES_256',A.MPHON_NO,'') MPHON_NO                    /*이동전화번호        */
+                    , A.MPHON_NO MPHON_NO                    /*이동전화번호        */
                     , A.MPHON_NO MPHON_NO_ENC_VAL                    /*이동전화번호암호화값        */
                     , A.MPHON_BK_DGT_NO                    /*이동전화뒤자리번호        */
-                    , DAMO.DECRYPT_VAR_B64('AES_256',A.EMAIL_ADDR,'') EMAIL_ADDR                    /*이메일주소        */
+                    , A.EMAIL_ADDR EMAIL_ADDR                    /*이메일주소        */
                     , A.PIC_NM                    /*담당자명        */
-                    , DAMO.DECRYPT_VAR_B64('AES_256',A.PIC_MPHON_NO,'')  PIC_MPHON_NO                    /*담당자이동전화번호        */
+                    , A.PIC_MPHON_NO  PIC_MPHON_NO                    /*담당자이동전화번호        */
                     , A.PIC_MPHON_BK_DGT_NO                    /*담당자이동전화뒤자리번호        */
-                    , DAMO.DECRYPT_VAR_B64('AES_256',A.PIC_EMAIL_ADDR,'')  PIC_EMAIL_ADDR
+                    , A.PIC_EMAIL_ADDR  PIC_EMAIL_ADDR
                     , TO_CHAR(A.INDI_INFO_VALID_PERD_STA_DT,'YYYYMMDDHH24MISS')    INDI_INFO_VALID_PERD_STA_DT                    /*개인정보유효기간시작일시        */
                     , TO_CHAR(A.INDI_INFO_VALID_PERD_END_DT,'YYYYMMDDHH24MISS')    INDI_INFO_VALID_PERD_END_DT                    /*개인정보유효기간종료일시        */
                     , A.CUST_STATUS_CD                    /*고객상태코드        */
@@ -54,7 +54,7 @@
                     , A.CUST_DIV_CD                    /*고객구분코드        */
                     , A.ZIP_CD                    /*우편번호        */
                     , A.ADDR_1_CTNTS                    /*주소1내용        */
-                    , DAMO.DECRYPT_VAR_B64('AES_256',A.ADDR_2_CTNTS,'') ADDR_2_CTNTS                    /*주소2내용        */
+                    , A.ADDR_2_CTNTS ADDR_2_CTNTS                    /*주소2내용        */
                     , A.RCMD_STOR_NO                    /*추천매장번호        */
                     , A.RCMDR_CUST_NO                    /*추천인고객번호        */
                     , A.RCMD_EXECVDEMP_NO                    /*추천임직원번호        */
@@ -143,10 +143,10 @@
                   AND A.ITG_CUST_NO    LIKE  '%' ||    #{itgCustNo} || '%'
         </if>
         <if test="mphonNo != null and mphonNo != ''">
-                  AND A.MPHON_NO    =    DAMO.ENCRYPT_VAR_B64('AES_256',#{mphonNo},'')
+                  AND A.MPHON_NO    =    #{mphonNo}
         </if>
         <if test="emailAddr != null and emailAddr != ''">
-                  AND A.EMAIL_ADDR    =    DAMO.ENCRYPT_VAR_B64('AES_256',#{emailAddr},'')
+                  AND A.EMAIL_ADDR    =    #{emailAddr}
         </if>
         <if test="mshipLoginId != null and mshipLoginId != ''">
                   AND A.MSHIP_LOGIN_ID    =    #{mshipLoginId}
@@ -669,7 +669,7 @@
             #{memSeq}, 
             #{itgCustNo}, 
             #{custNm}, 
-            DAMO.DECRYPT_VAR_B64('AES_256', #{mphonNoEncVal}, '')
+             #{mphonNoEncVal}
             <!-- #{custNm}, 
             #{emailAddr}, 
             #{campId},

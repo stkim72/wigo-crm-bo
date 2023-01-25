@@ -1,21 +1,12 @@
-# server config
-server:
-  servlet:    
-    session: 
-      timeout: 1800
-  tomcat:
-    accesslog:
-      enabled: true
-      directory: /log/sw/tomcat/crm 
-      
 # Spring Configure
 spring:
   servlet:
       multipart:
         max-file-size: 10GB
         max-request-size: 10GB
+
   nas:
-    path:   /NFS/crm/
+    path:   c:/nas/crm/
     url:    https://files.ceragem.com/crm/
   jwt:
     secret: 1qaz@WSX
@@ -23,20 +14,33 @@ spring:
     # Pool
     hikari:
       connection-timeout: 120000
-      maximum-pool-size: 20
-      log-maximum-pool-size: 10
+      maximum-pool-size: 5
+      log-maximum-pool-size: 2
+    # Inmemory DB
     log-driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    log-url: jdbc:log4jdbc:oracle:thin:@172.23.1.91:8122:DCRMDB
-    log-username: crmown
-    log-password: crmown
+    log-url: jdbc:log4jdbc:oracle:thin:@S3.MOARA.ORG:6030:ORCL
+    log-username: CERAGEM
+    log-password: ceragem
+    #ENC(lrAuYaCIEFzsy9dbyqMYcw==)
 
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    url: jdbc:log4jdbc:oracle:thin:@172.23.1.91:8122:DCRMDB
-    username: crmown
-    password: crmown
+    url: jdbc:log4jdbc:oracle:thin:@S3.MOARA.ORG:6030:ORCL
+    username: CERAGEM
+    password: ceragem
+    #ENC(lrAuYaCIEFzsy9dbyqMYcw==)
+#    log-driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+#    log-url: jdbc:log4jdbc:oracle:thin:@192.168.70.26:1521:XE
+#    log-username: CERAGEM_CRM
+#    logpassword: CERAGEM_CRM
+#
+#    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+#    url: jdbc:log4jdbc:oracle:thin:@192.168.70.26:1521:XE
+#    username: CERAGEM_CRM
+#    password: CERAGEM_CRM
+
   api:
-    base-url: https://dev-api.ceragem.com
-    token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwidXNlckNkIjoiU1lTVEVNIiwic3lzdGVtQ2QiOiJDUk0iLCJleHAiOjE5NjU5Njc3OTN9.JdcD_hAcfinlJk10jvYJ1_99QX5Lc9aG0VGQQ_yK8YE      
+    base-url: http://localhost:8052
+    token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwidXNlckNkIjoiU1lTVEVNIiwic3lzdGVtQ2QiOiJDUk0iLCJleHAiOjE5NjUwODQzMjF9.xvMWFRhGe9Jk35rYxPdxRoQne7f7RKzKIpQA7xrfDUM      
     url:
       token-url: /api/v1.0/token/CRM
       customer: /crm/v1.0/customer
@@ -49,7 +53,6 @@ spring:
       customer-memship: /crm/v1.0/membership
       sap: /sap/v1.0/pnt
     bos-url: https://mapone.ceragem.com/crm
-      
   jade:
     token-url: https://cerahr.ceragem.com:9950/restful/getToken
     rest-url: https://cerahr.ceragem.com:9950/restful
@@ -59,17 +62,18 @@ spring:
     org-param: ZjH2yGNkSXC63TMeuSX5Hw==
     hr-param: 438MVz40Ca2tE2C+CR1RDQ== 
   sso:
-    mode : true
-  #https://ceragem.ncpworkplace.com/authn/oauthLogin?response_type=code&client_id=zEgB3stWau126Qf9SWHf&redirect_uri=https://cerahr.ceragem.com:9950/authNaver/oauth2callback
+    mode : false
     auth-url: https://ceragem.ncpworkplace.com/authn/oauthLogin
     token-url: https://ceragem.ncpworkplace.com/authn/accessToken
     profile-url: https://ceragem.ncpworkplace.com/authn/userProfile
     logout-url: https://ceragem.ncpworkplace.com/authn/logoutProcess
+#    http://crm-test.ceragem.com:8081/logout/logout
     callback-url: http://dev-crm.ceragem.com/login/oauth
+#    callback-url: /login/oauth
     client-id: zEgB3stWau126Qf9SWHf
     client-secret: He72CbdYrE
   bi:
-    url : http://dev-bi.ceragem.com   
+    url : http://dev-bi.ceragem.com
     server : GLCMAP01D
   mcast:
     host: 228.0.0.4
@@ -78,7 +82,7 @@ spring:
   eon:
     send:
       url : http://dev-ums.ceragem.com/weom/servlet/servlet.WSOMZ000CR
-      user : crm_1
+      user : crm_1    
     barcode-url: http://dev-ums.ceragem.com/weom/app/mmsimg
   batch:
     host: ENC(fSiGKFwqZrw3OftT2biHyio8GKv6O1rF)
@@ -90,10 +94,14 @@ spring:
 logging:
   #  file: logs/application.log
   config: classpath:logback-dev.xml
-  level:
-    com.ceragem: DEBUG
-    org.springframework.web: INFO
+
     
+server:
+  port: 8051
+  servlet:    
+    session: 
+      timeout: 1800
+
 jasypt:
   encryptor:
-    bean: jasyptStringEncryptor   
+    bean: jasyptStringEncryptor

@@ -1412,7 +1412,6 @@
 			#{custNm}, 
 			#{gndrCd}, 
 			#{birthday}, 
-			DAMO.ENCRYPT_VAR_B64('AES_256', #{mphonNo}, ''), 
 			#{mphonBkDgtNo},
 			'N',
 			#{regrId}
@@ -1505,8 +1504,8 @@
 				, SUBSTR((NVL(rTB.CUST_NM, cTB.CUST_NM)),1,20) AS CUST_NM
 				, NVL(rTB.MPHON_NO, cTB.MPHON_NO) AS MPHON_NO
 				--, NVL2(NVL(rTB.MPHON_BK_DGT_NO, cTB.MPHON_BK_DGT_NO), '010-****-'|| NVL(rTB.MPHON_BK_DGT_NO, cTB.MPHON_BK_DGT_NO), '') AS MPHON_NO_MASKING
-				, DAMO.DECRYPT_VAR_B64('AES_256', NVL(rTB.MPHON_NO, cTB.MPHON_NO), '') AS MPHON_NO_MASKING
-				, DAMO.DECRYPT_VAR_B64('AES_256', EMAIL_ADDR, '') AS EMAIL_ADDR
+				,  NVL(rTB.MPHON_NO, cTB.MPHON_NO) AS MPHON_NO_MASKING
+				,  EMAIL_ADDR AS EMAIL_ADDR
 				, NVL(MSHIP_GRADE_CD, '001') AS MSHIP_GRADE_CD
 				, NVL(SMS_RCV_AGREE_YN, 'N') AS SMS_RCV_AGREE_YN
 				, NVL(EMAIL_RCV_AGREE_YN, 'N') AS EMAIL_RCV_AGREE_YN
@@ -1529,7 +1528,7 @@
 					AND CUST_NM LIKE '%' || #{custNm} || '%'
 				</if>
 				<if test="mphonNo != null and mphonNo != ''">
-					AND MPHON_NO = DAMO.ENCRYPT_VAR_B64('AES_256', #{mphonNo}, '')
+					AND #{mphonNo}
 				</if>
 			) rTB
 			LEFT JOIN CRM_CUST_BAS cTB
@@ -1593,7 +1592,7 @@
 			#{sendGrpType}, 
 			#{itgCustNo}, 
 			#{custNm}, 
-			DAMO.DECRYPT_VAR_B64('AES_256', #{mphonNo}, ''),
+			 #{mphonNo},
 			#{emailAddr}
 		)
 	</insert>
@@ -1604,7 +1603,7 @@
 			EMAIL_QSTNR_GRP_NO, ITG_CUST_NO, MSHP_NM, TEL_NO, EMAIL_ADDR
 		)SELECT
 			#{sendGrpType} AS sendGrpType, 
-			ITG_CUST_NO, CUST_NM, DAMO.DECRYPT_VAR_B64('AES_256', MPHON_NO, ''), EMAIL_ADDR
+			ITG_CUST_NO, CUST_NM,  MPHON_NO, EMAIL_ADDR
 		FROM(
 			<include refid="sqlTargetCustList"/>
 		)
@@ -1621,7 +1620,7 @@
 			#{memSeq}, 
 			#{itgCustNo}, 
 			#{custNm}, 
-			DAMO.DECRYPT_VAR_B64('AES_256', #{mphonNo}, ''),
+			 #{mphonNo},
 			#{custNm}, 
 			#{emailAddr}, 
 			#{campId},
@@ -1636,7 +1635,7 @@
 			MEMBER_SEQ, CLIENT, CAMPAIGN_ID, REV_ID, REV_NM, DESTEL, MAPPING1, MAPPING2, DUMMY1, DUMMY2, DUMMY10
 		)SELECT
 			ROWNUM AS rnum, #{clientId}, #{campId}, 
-			ITG_CUST_NO, CUST_NM, DAMO.DECRYPT_VAR_B64('AES_256', MPHON_NO, ''), CUST_NM, EMAIL_ADDR,
+			ITG_CUST_NO, CUST_NM,  MPHON_NO, CUST_NM, EMAIL_ADDR,
 			#{campId}, #{custGrpNo}, ITG_CUST_NO
 		FROM(
 			<include refid="sqlTargetCustList"/>

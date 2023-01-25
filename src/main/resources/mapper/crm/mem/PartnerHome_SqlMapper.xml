@@ -9,10 +9,10 @@
                     , CPRT_CMP_NM					/* 제휴회사명 */
                     , CPRT_STATUS_CD				/* 제휴상태코드 */
                     , CPRT_DIV_CD					/* 제휴구분코드 */
-                    , DAMO.DECRYPT_VAR_B64('AES_256',TEL_NO,'') AS TEL_NO				/* 전화번호 */
+                    , TEL_NO AS TEL_NO				/* 전화번호 */
                     , ZIP_CD						/* 우편번호 */
                     , ADDR_1_CTNTS        			/* 주소1내용 */
-                    , DAMO.DECRYPT_VAR_B64('AES_256',ADDR_2_CTNTS,'') AS ADDR_2_CTNTS	/* 주소2내용 */
+                    , ADDR_2_CTNTS AS ADDR_2_CTNTS	/* 주소2내용 */
                     , BIZ_NO						/* 사업자등록번호 */
                     , CPRT_CMP_TYPE_CD				/* 제휴회사유형코드 */
                     , CPRT_CMP_MEMO_CTNTS			/* 제휴회사메모내용 */
@@ -22,9 +22,9 @@
                     , DEPT_NM						/* 부서명 */
                     , RSPOF_NM						/* 직책명 */
                     , BIRTHDAY						/* 생년월일 */
-                    , DAMO.DECRYPT_VAR_B64('AES_256',PIC_TEL_NO,'') AS PIC_TEL_NO		/* 담당자전화번호 */
+                    , PIC_TEL_NO AS PIC_TEL_NO		/* 담당자전화번호 */
                     , GNDR_CD						/* 성별코드 */
-                    , DAMO.DECRYPT_VAR_B64('AES_256',EMAIL_ADDR,'') AS EMAIL_ADDR		/* 이메일주소 */
+                    , EMAIL_ADDR AS EMAIL_ADDR		/* 이메일주소 */
                     , AMDR_ID						/* 수정자ID */
                     , AMD_DT						/* 수정일시 */
                     , REGR_ID						/* 등록자ID */
@@ -128,10 +128,10 @@
                      , #{cprtCmpNm}
                      , #{cprtStatusCd}
                      , #{cprtDivCd}
-                     , DAMO.ENCRYPT_VAR_B64('AES_256',#{telNo},'')
+                     , #{telNo}
                      , #{zipCd}
                      , #{addr1Ctnts}
-                     , DAMO.ENCRYPT_VAR_B64('AES_256',#{addr2Ctnts},'')
+                     , #{addr2Ctnts}
                      , #{bizNo}
                      , #{cprtCmpTypeCd}
                      , #{cprtCmpMemoCtnts}
@@ -141,9 +141,9 @@
                      , #{deptNm}
                      , #{rspofNm}
                      , #{birthday}
-                     , DAMO.ENCRYPT_VAR_B64('AES_256',#{picTelNo},'')
+                     , #{picTelNo}
                      , #{gndrCd}
-                     , DAMO.ENCRYPT_VAR_B64('AES_256',#{emailAddr},'')
+                     , #{emailAddr}
                      , #{amdrId}
                      , SYSDATE
                      , #{regrId}
@@ -189,7 +189,7 @@
 			, CPRT_CMP_IDFY_NO AS EMP_NO		/* 제휴회사식별번호 */
 			, CPRT_CMP_NO			/* 제휴회사번호 */
 			, ITG_CUST_NO			/* 통합고객번호 */
-			, DAMO.DECRYPT_VAR_B64('AES_256',MPHON_NO,'') AS MPHON_NO /* 이동전화번호 */
+			, MPHON_NO AS MPHON_NO /* 이동전화번호 */
 			, MPHON_NO MPHON_NO_ENC_VAL		/* 암호화값 */
 			, MPHON_BK_DGT_NO		/* 뒤자리번호 */
 			, CPRT_CMP_CARD_NO		/* 제휴회사카드번호 */
@@ -215,7 +215,7 @@
 			AND TO_DATE(#{regEndDt},'YYYYMMDD') + 1 > REG_DT
 		</if>
 		<if test="mphonNo != null and mphonNo != ''">
-			AND MPHON_NO = DAMO.ENCRYPT_VAR_B64('AES_256',#{mphonNo},'')
+			AND MPHON_NO = #{mphonNo}
 			<!-- AND MPHON_NO LIKE '%' || #{mphonNo} || '%' -->
 		</if>
     </sql>
@@ -243,7 +243,7 @@
 			WHEN MATCHED THEN
 				UPDATE SET
 					CPRT_CMP_NO 		= #{cprtCmpNo},
-					MPHON_NO 			= DAMO.ENCRYPT_VAR_B64('AES_256',#{mphonNoEncVal},''),
+					MPHON_NO 			= #{mphonNoEncVal},
 					MPHON_BK_DGT_NO 	= #{mphonBkDgtNo},
 					CPRT_CMP_CARD_NO 	= #{cprtCmpCardNo},
 					EXECVDEMP_NM 		= #{execvdempNm},
@@ -268,7 +268,7 @@
 	    		) VALUES (
                        #{cprtCmpIdfyNo}
                      , #{cprtCmpNo}
-                     , DAMO.ENCRYPT_VAR_B64('AES_256',#{mphonNoEncVal},'')
+                     , #{mphonNoEncVal}
                      , #{mphonBkDgtNo}
                      , #{cprtCmpCardNo}
                      , #{execvdempNm}

@@ -84,8 +84,8 @@
                     , B.CUST_NM
                     , B.BIRTHDAY
                     , B.GNDR_CD
-                    , DAMO.DECRYPT_VAR_B64('AES_256',B.MPHON_NO,'') MPHON_NO
-                    , DAMO.DECRYPT_VAR_B64('AES_256',B.EMAIL_ADDR,'') EMAIL_ADDR
+                    , B.MPHON_NO MPHON_NO
+                    , B.EMAIL_ADDR EMAIL_ADDR
                     , B.CORP_TEL_NO
                     , B.FORN_YN
                     , B.CUST_STATUS_CD

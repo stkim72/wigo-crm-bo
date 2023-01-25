@@ -1125,7 +1125,7 @@
             #{memSeq}, 
             #{itgCustNo}, 
             #{custNm}, 
-            DAMO.DECRYPT_VAR_B64('AES_256', #{mphonNoEncVal}, ''),
+             #{mphonNoEncVal},
             #{itgCustNo}
             <!-- #{custNm}, 
             #{emailAddr}, 

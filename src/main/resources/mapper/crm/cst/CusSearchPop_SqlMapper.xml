@@ -103,11 +103,11 @@
                     , '010-****-' || A.MPHON_BK_DGT_NO MPHON_NO                    /*이동전화번호        */
                     , A.MPHON_NO MPHON_NO_ENC_VAL                    /*이동전화번호암호화값        */
                     , A.MPHON_BK_DGT_NO                    /*이동전화뒤자리번호        */
-                    , DAMO.DECRYPT_VAR_B64('AES_256',A.EMAIL_ADDR,'') EMAIL_ADDR                    /*이메일주소        */
+                    , A.EMAIL_ADDR EMAIL_ADDR                    /*이메일주소        */
                     , A.PIC_NM                    /*담당자명        */
-                    , DAMO.DECRYPT_VAR_B64('AES_256',A.PIC_MPHON_NO,'')  PIC_MPHON_NO                    /*담당자이동전화번호        */
+                    , A.PIC_MPHON_NO  PIC_MPHON_NO                    /*담당자이동전화번호        */
                     , A.PIC_MPHON_BK_DGT_NO                    /*담당자이동전화뒤자리번호        */
-                    , DAMO.DECRYPT_VAR_B64('AES_256',A.PIC_EMAIL_ADDR,'')  PIC_EMAIL_ADDR                    /*담당자이메일주소        */
+                    , A.PIC_EMAIL_ADDR  PIC_EMAIL_ADDR                    /*담당자이메일주소        */
                     , TO_CHAR(A.INDI_INFO_VALID_PERD_STA_DT,'YYYYMMDDHH24MISS')    INDI_INFO_VALID_PERD_STA_DT                    /*개인정보유효기간시작일시        */
                     , TO_CHAR(A.INDI_INFO_VALID_PERD_END_DT,'YYYYMMDDHH24MISS')    INDI_INFO_VALID_PERD_END_DT                    /*개인정보유효기간종료일시        */
                     , A.CUST_STATUS_CD                    /*고객상태코드        */
@@ -117,7 +117,7 @@
                     , A.CUST_DIV_CD                    /*고객구분코드        */
                     , A.ZIP_CD                    /*우편번호        */
                     , A.ADDR_1_CTNTS                    /*주소1내용        */
-                    , DAMO.DECRYPT_VAR_B64('AES_256',A.ADDR_2_CTNTS,'') ADDR_2_CTNTS                    /*주소2내용        */
+                    , A.ADDR_2_CTNTS ADDR_2_CTNTS                    /*주소2내용        */
                     , A.RCMD_STOR_NO                    /*추천매장번호        */
                     , (SELECT STOR_NM FROM CRM_STOR_BAS WHERE STOR_NO = A.RCMD_STOR_NO) AS RCMD_STOR_NM                    /*추천매장        */
                     , A.RCMDR_CUST_NO                    /*추천인고객번호        */
@@ -187,7 +187,7 @@
                   <!-- AND A.CUST_NM    LIKE  '%' ||    #{custNm} || '%' -->
         </if>
         <if test="mphonNo != null and mphonNo != ''">
-                  AND A.MPHON_NO        =       DAMO.ENCRYPT_VAR_B64('AES_256',#{mphonNo},'')
+                  AND A.MPHON_NO        =       #{mphonNo}
         </if>
         <if test="corpDivYn != null and corpDivYn != ''">
                   AND A.CORP_DIV_YN     =       #{corpDivYn}
@@ -230,19 +230,19 @@
                   AND A.MPHON_BK_DGT_NO =       #{mphonBkDgtNo}
         </if>
         <if test="emailAddr != null and emailAddr != ''">
-                  AND A.EMAIL_ADDR      =       DAMO.ENCRYPT_VAR_B64('AES_256',#{emailAddr},'')
+                  AND A.EMAIL_ADDR      =       #{emailAddr}
         </if>
         <if test="picNm != null and picNm != ''">
                   AND A.PIC_NM          =       #{picNm}
         </if>
         <if test="picMphonNo != null and picMphonNo != ''">
-                  AND A.PIC_MPHON_NO    =       DAMO.ENCRYPT_VAR_B64('AES_256',#{picMphonNo},'')
+                  AND A.PIC_MPHON_NO    =       #{picMphonNo}
         </if>
         <if test="picMphonBkDgtNo != null and picMphonBkDgtNo != ''">
                   AND A.PIC_MPHON_BK_DGT_NO=       #{picMphonBkDgtNo}
         </if>
         <if test="picEmailAddr != null and picEmailAddr != ''">
-                  AND A.PIC_EMAIL_ADDR  =       DAMO.ENCRYPT_VAR_B64('AES_256',#{picEmailAddr},'')
+                  AND A.PIC_EMAIL_ADDR  =       #{picEmailAddr}
         </if>
         <if test="indiInfoValidPerdStaDt != null and indiInfoValidPerdStaDt != ''">
                   AND A.INDI_INFO_VALID_PERD_STA_DT=       TO_DATE(#{indiInfoValidPerdStaDt},'YYYYMMDDHH24MISS')
@@ -312,7 +312,7 @@
                   AND A.ADDR_1_CTNTS    =       #{addr1Ctnts}
         </if>
         <if test="addr2Ctnts != null and addr2Ctnts != ''">
-                  AND A.ADDR_2_CTNTS    =       DAMO.ENCRYPT_VAR_B64('AES_256',#{addr2Ctnts},'')
+                  AND A.ADDR_2_CTNTS    =       #{addr2Ctnts}
         </if>
         <if test="rcmdStorNo != null and rcmdStorNo != ''">
                   AND A.RCMD_STOR_NO    =       #{rcmdStorNo}

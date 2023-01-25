@@ -6,9 +6,9 @@
 	                  ID USERNUM           /*사용자 No.*/
 	                , USERNAME             /*사용자명      */
 	                , LOGIN_ID             /*사용자ID     */
-	                , DAMO.DECRYPT_VAR_B64('AES_256',PHONE,'') AS "USERPHONENUMBER"                /*사용자전화번호  */
+	                , PHONE AS "USERPHONENUMBER"                /*사용자전화번호  */
 	                , GENDER AS "USERGENDER"               /*사용자성별    */
-	                , DAMO.DECRYPT_VAR_B64('AES_256',EMAIL,'') AS "USEREMAIL"                /*사용자이메일   */
+	                , EMAIL AS "USEREMAIL"                /*사용자이메일   */
 	                , BIRTH AS "USERBIRTH"                /*사용자생년월일  */
 	                , CREATED_AT           /*계정등록일자   */
 	                , UPDATED_AT           /*계정수정일자   */
@@ -51,8 +51,8 @@
     <select id="selectList" resultType="com.ceragem.crm.backcus.model.CrmUserInfoVo">
        	<if test='tabData == "BackCus"'>
         SELECT RES.*
-             , DAMO.DECRYPT_VAR_B64('AES_256', PHONE, '') USERPHONENUMBER
-             , DAMO.DECRYPT_VAR_B64('AES_256', EMAIL, '') USEREMAIL
+             ,  PHONE  USERPHONENUMBER
+             ,  EMAIL USEREMAIL
           FROM (
             <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
 	            <![CDATA[
@@ -71,12 +71,12 @@
 	       	   </if>
 	       	   <if test='userPhoneNumber != null and userPhoneNumber != ""'>
 	       	       <![CDATA[
-	                   AND DAMO.DECRYPT_VAR_B64('AES_256',PHONE,'') LIKE '%${userPhoneNumber}%'
+	                   AND PHONE LIKE '%${userPhoneNumber}%'
 		       	   ]]>
 	       	   </if>
 	       	   <if test='userEmail != null and domain != null and userEmail != ""'>
 	       	   	   <![CDATA[
-	                   AND EMAIL = DAMO.ENCRYPT_VAR_B64('AES_256',#{userEmail} || '@' || #{domain},'')
+	                   AND EMAIL = #{userEmail} || '@' || #{domain}
 		       	   ]]>
 	       	   </if>
        	   </where>
@@ -86,8 +86,8 @@
        </if>
        <if test='tabData == "MEM"'>
        SELECT RES.*
-             , DAMO.DECRYPT_VAR_B64('AES_256', PHONE, '') USERPHONENUMBER
-             , DAMO.DECRYPT_VAR_B64('AES_256', EMAIL, '') USEREMAIL
+             ,  PHONE USERPHONENUMBER
+             ,  EMAIL USEREMAIL
           FROM (
        	   <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
            	   SELECT /* com.ceragem.crm.backcus.dao.CrmUserInfoBaseDao.selectList */ *
@@ -110,12 +110,12 @@
 	       	      </if>
 	       	      <if test='userPhoneNumber != null and userPhoneNumber != ""'>
 	       	       <![CDATA[
-	                   AND DAMO.DECRYPT_VAR_B64('AES_256', PHONE, '') LIKE '%${userPhoneNumber}%'
+	                   AND  PHONE LIKE '%${userPhoneNumber}%'
 		       	   ]]>
 	       	      </if>
 	       	      <if test='userEmail != null and domain != null and userEmail != ""'>
 	       	   	   <![CDATA[
-	                   AND EMAIL = DAMO.ENCRYPT_VAR_B64('AES_256',#{userEmail} || '@' || #{domain},'')
+	                   AND EMAIL = #{userEmail} || '@' || #{domain}
 		       	   ]]>
 	       	      </if>
       	          </where>
@@ -127,9 +127,9 @@
 
 	<select id="asSelectList" resultType="com.ceragem.crm.backcus.model.CrmAsDetailVo">
 	SELECT RES.*
-         , DAMO.DECRYPT_VAR_B64('AES_256',P_PHONE, '')||DAMO.DECRYPT_VAR_B64('AES_256',N_PHONE, '')||DAMO.DECRYPT_VAR_B64('AES_256',PHONE, '') ASPHONE
-	     , DAMO.DECRYPT_VAR_B64('AES_256',P_MOBILE, '')||DAMO.DECRYPT_VAR_B64('AES_256',N_MOBILE, '')||DAMO.DECRYPT_VAR_B64('AES_256',MOBILE, '') ASMOBILE
-	     , DAMO.DECRYPT_VAR_B64('AES_256',EMAIL, '') ASEMAIL
+         , P_PHONE ||N_PHONE||PHONE ASPHONE
+	     , P_MOBILE||N_MOBILE||MOBILE ASMOBILE
+	     , EMAIL ASEMAIL
 	  FROM (
 	    <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
 	       SELECT /* com.ceragem.crm.backcus.dao.CrmUserInfoBaseDao.asSelectList */
@@ -155,13 +155,13 @@
 	       	</if>
 	       	<if test='userPhoneNumber != null and userPhoneNumber != ""'>
 	       	<![CDATA[
-	          AND (DAMO.DECRYPT_VAR_B64('AES_256',P_PHONE, '')||DAMO.DECRYPT_VAR_B64('AES_256',N_PHONE, '')||DAMO.DECRYPT_VAR_B64('AES_256',PHONE, '') LIKE '%${userPhoneNumber}%'
-	           OR DAMO.DECRYPT_VAR_B64('AES_256',P_MOBILE, '')||DAMO.DECRYPT_VAR_B64('AES_256',N_MOBILE, '')||DAMO.DECRYPT_VAR_B64('AES_256',MOBILE, '') LIKE '%${userPhoneNumber}%')
+	          AND (P_PHONE||N_PHONE||PHONE LIKE '%${userPhoneNumber}%'
+	           OR P_MOBILE||N_MOBILE||MOBILE LIKE '%${userPhoneNumber}%')
 		    ]]>
 	       	</if>
 	       	<if test='userEmail != null and domain != null and userEmail != ""'>
 	       	<![CDATA[
-	          AND B.EMAIL = DAMO.ENCRYPT_VAR_B64('AES_256',#{userEmail} || '@' || #{domain},'')
+	          AND B.EMAIL = #{userEmail} || '@' || #{domain}
 		    ]]>
 	       	</if>
          ORDER BY B.CUSTOMER_NAME
@@ -171,9 +171,9 @@
 
 	<select id="asCustSelectList" resultType="com.ceragem.crm.backcus.model.CrmAsDetailVo">
 	SELECT RES.*
-         , DAMO.DECRYPT_VAR_B64('AES_256',P_PHONE, '')||DAMO.DECRYPT_VAR_B64('AES_256',N_PHONE, '')||DAMO.DECRYPT_VAR_B64('AES_256',PHONE, '') ASPHONE
-	     , DAMO.DECRYPT_VAR_B64('AES_256',P_MOBILE, '')||DAMO.DECRYPT_VAR_B64('AES_256',N_MOBILE, '')||DAMO.DECRYPT_VAR_B64('AES_256',MOBILE, '') ASMOBILE
-	     , DAMO.DECRYPT_VAR_B64('AES_256',EMAIL, '') ASEMAIL
+         , P_PHONE||N_PHONE||PHONE ASPHONE
+	     , P_MOBILE||N_MOBILE||MOBILE ASMOBILE
+	     , EMAIL ASEMAIL
 	  FROM (
 	    <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
 	       SELECT /* com.ceragem.crm.backcus.dao.CrmUserInfoBaseDao.asCustSelectList */
@@ -197,13 +197,13 @@
 		       	</if>
 		       	<if test='userPhoneNumber != null and userPhoneNumber != ""'>
 		       	<![CDATA[
-		       	AND (DAMO.DECRYPT_VAR_B64('AES_256',P_PHONE, '')||DAMO.DECRYPT_VAR_B64('AES_256',N_PHONE, '')||DAMO.DECRYPT_VAR_B64('AES_256',PHONE, '') LIKE '%${userPhoneNumber}'
-		        	OR DAMO.DECRYPT_VAR_B64('AES_256',P_MOBILE, '')||DAMO.DECRYPT_VAR_B64('AES_256',N_MOBILE, '')||DAMO.DECRYPT_VAR_B64('AES_256',MOBILE, '') LIKE '%${userPhoneNumber}')
+		       	AND (P_PHONE||N_PHONE||PHONE LIKE '%${userPhoneNumber}'
+		        	OR P_MOBILE||N_MOBILE||MOBILE LIKE '%${userPhoneNumber}')
 			    ]]>
 		       	</if>
 		       	<if test='userEmail != null and domain != null and userEmail != ""'>
 		       	<![CDATA[
-		       	AND EMAIL = DAMO.ENCRYPT_VAR_B64('AES_256',#{userEmail} || '@' || #{domain},'')
+		       	AND EMAIL = #{userEmail} || '@' || #{domain}
 			    ]]>
 		       	</if>
             </where>
@@ -213,7 +213,7 @@
 
 	<select id="collabiSelectList" resultType="com.ceragem.crm.backcus.model.CrmCollabiDetailVo">
 	    SELECT RES.*
-	         , DAMO.DECRYPT_VAR_B64('AES_256',CID, '') USERPHONE
+	         , CID USERPHONE
 		  FROM (
 	    <include refid="com.ceragem.crm.sys.dao.CrmCommonDao.pagingHeader"/>
            	   SELECT /* com.ceragem.crm.backcus.dao.CrmUserInfoBaseDao.collabiSelectList */ *
@@ -234,7 +234,7 @@
 	       	      </if>
 	       	      <if test='userPhoneNumber != null and userPhoneNumber != ""'>
 	       	       <![CDATA[
-	                   AND DAMO.DECRYPT_VAR_B64('AES_256',CID,'') LIKE '%${userPhoneNumber}%'
+	                   AND CID LIKE '%${userPhoneNumber}%'
 		       	   ]]>
 	       	      </if>
       	          </where>
@@ -258,12 +258,12 @@
 				</if>
 				<if test='userPhoneNumber != null and userPhoneNumber != ""'>
 					<![CDATA[
-					AND DAMO.DECRYPT_VAR_B64('AES_256',PHONE,'') LIKE '%${userPhoneNumber}%'
+					AND PHONE LIKE '%${userPhoneNumber}%'
 					]]>
 				</if>
 				<if test='userEmail != null and domain != null and userEmail != ""'>
 					<![CDATA[
-					AND EMAIL = DAMO.ENCRYPT_VAR_B64('AES_256',#{userEmail} || '@' || #{domain},'')
+					AND EMAIL = #{userEmail} || '@' || #{domain}
 					]]>
 				</if>
 			</where>
@@ -279,12 +279,12 @@
 				</if>
 				<if test='userPhoneNumber != null and userPhoneNumber != ""'>
 				<![CDATA[
-				AND DAMO.DECRYPT_VAR_B64('AES_256', PHONE, '') LIKE '%${userPhoneNumber}%'
+				AND  PHONE LIKE '%${userPhoneNumber}%'
 				]]>
 				</if>
 				<if test='userEmail != null and domain != null and userEmail != ""'>
 				<![CDATA[
-				AND EMAIL = DAMO.ENCRYPT_VAR_B64('AES_256',#{userEmail} || '@' || #{domain},'')
+				AND EMAIL = #{userEmail} || '@' || #{domain}
 				]]>
 				</if>
 			</where>
@@ -300,7 +300,7 @@
 				</if>
 				<if test='userPhoneNumber != null and userPhoneNumber != ""'>
 				<![CDATA[
-				AND DAMO.DECRYPT_VAR_B64('AES_256',CID,'') LIKE '%${userPhoneNumber}%'
+				AND CID LIKE '%${userPhoneNumber}%'
 				]]>
 				</if>
 			</where>
@@ -317,13 +317,13 @@
             </if>
             <if test='userPhoneNumber != null and userPhoneNumber != ""'>
             <![CDATA[
-            AND (DAMO.DECRYPT_VAR_B64('AES_256',P_PHONE, '')||DAMO.DECRYPT_VAR_B64('AES_256',N_PHONE, '')||DAMO.DECRYPT_VAR_B64('AES_256',PHONE, '') LIKE '%${userPhoneNumber}%'
-            OR DAMO.DECRYPT_VAR_B64('AES_256',P_MOBILE, '')||DAMO.DECRYPT_VAR_B64('AES_256',N_MOBILE, '')||DAMO.DECRYPT_VAR_B64('AES_256',MOBILE, '') LIKE '%${userPhoneNumber}%')
+            AND (P_PHONE||N_PHONE||PHONE LIKE '%${userPhoneNumber}%'
+            OR P_MOBILE||N_MOBILE||MOBILE LIKE '%${userPhoneNumber}%')
             ]]>
             </if>
             <if test='userEmail != null and domain != null and userEmail != ""'>
             <![CDATA[
-            AND B.EMAIL = DAMO.ENCRYPT_VAR_B64('AES_256',#{userEmail} || '@' || #{domain},'')
+            AND B.EMAIL = #{userEmail} || '@' || #{domain}
             ]]>
             </if>
 		</if>
@@ -338,13 +338,13 @@
 	            </if>
 	            <if test='userPhoneNumber != null and userPhoneNumber != ""'>
 	            <![CDATA[
-	            AND (DAMO.DECRYPT_VAR_B64('AES_256',P_PHONE, '')||DAMO.DECRYPT_VAR_B64('AES_256',N_PHONE, '')||DAMO.DECRYPT_VAR_B64('AES_256',PHONE, '') LIKE '%${userPhoneNumber}'
-	            OR DAMO.DECRYPT_VAR_B64('AES_256',P_MOBILE, '')||DAMO.DECRYPT_VAR_B64('AES_256',N_MOBILE, '')||DAMO.DECRYPT_VAR_B64('AES_256',MOBILE, '') LIKE '%${userPhoneNumber}')
+	            AND P_PHONE||N_PHONE||PHONELIKE '%${userPhoneNumber}'
+	            OR P_MOBILE||N_MOBILE||MOBILE LIKE '%${userPhoneNumber}')
 	            ]]>
 	            </if>
 	            <if test='userEmail != null and domain != null and userEmail != ""'>
 	            <![CDATA[
-	            AND EMAIL = DAMO.ENCRYPT_VAR_B64('AES_256',#{userEmail} || '@' || #{domain},'')
+	            AND EMAIL = #{userEmail} || '@' || #{domain}
 	            ]]>
 	            </if>
             </where>
@@ -378,7 +378,7 @@
                     , CLIENT_NM CLIENTNM
                     , QUESTION CLIENTQ
                     , ANSWER CLIENTA
-                    , DAMO.DECRYPT_VAR_B64('AES_256',CID, '') USERPHONE
+                    , CID USERPHONE
             <![CDATA[
                 FROM ONLYDB.LIST_COUNSEL
                WHERE SEQ = #{collabiSeq}
@@ -402,9 +402,9 @@
                     , A.TOTAL_COST               /*총 비용*/
                     , B.ZIPCODE ASZIPCODE        /*우편번호*/
                     , B.ADDRESS ASADDRESS        /*주소*/
-                    , DAMO.DECRYPT_VAR_B64('AES_256',P_MOBILE, '')||DAMO.DECRYPT_VAR_B64('AES_256',N_MOBILE, '')||DAMO.DECRYPT_VAR_B64('AES_256',MOBILE, '') ASMOBILE /*고객휴대전화번호*/
-                    , DAMO.DECRYPT_VAR_B64('AES_256',B.DETAIL_ADDR,'') DETAIL_ADDR              /*상세주소*/
-                    , DAMO.DECRYPT_VAR_B64('AES_256',B.EMAIL,'') ASEMAIL            /*이메일*/
+                    , P_MOBILE||N_MOBILE||MOBILE ASMOBILE /*고객휴대전화번호*/
+                    , B.DETAIL_ADDR DETAIL_ADDR              /*상세주소*/
+                    , B.EMAIL ASEMAIL            /*이메일*/
              FROM ONLYDB.AS_CASE A
                 , ONLYDB.AS_CUSTOMER B
             WHERE A.CUSTOMER_ID = B.CUSTOMER_ID

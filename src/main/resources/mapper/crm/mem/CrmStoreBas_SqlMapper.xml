@@ -5,7 +5,7 @@
 		SELECT 
 			STOR_NO,
 			STOR_NM,
-			DAMO.DECRYPT_VAR_B64('AES_256', TEL_NO, '') AS TEL_NO,
+			 TEL_NO AS TEL_NO,
 			STOR_STATUS_CD,
 			DISTRCT_CD,
 			REG_DT
@@ -118,7 +118,7 @@
 			, STOR_NM																/*매장명*/
 			, TO_CHAR(REG_DT,'YYYY-MM-DD') AS REG_DT								/*등록일시*/
 			, STOR_STATUS_CD														/*상태코드*/
-			, DAMO.DECRYPT_VAR_B64('AES_256', TEL_NO, '') AS TEL_NO					/*전화번호*/
+			,  TEL_NO AS TEL_NO					/*전화번호*/
 			, CASE
 				WHEN STA_HOUR IS NULL OR END_HOUR IS NULL THEN ''
 				ELSE(
@@ -129,7 +129,7 @@
 			  END AS USE_HOUR														/*영업시간*/
 			, ZIP_CD																/*우편번호*/
 			, ADDR_1_CTNTS															/*주소1내용*/
-			, DAMO.DECRYPT_VAR_B64('AES_256', ADDR_2_CTNTS, '') AS ADDR_2_CTNTS		/*주소2내용*/
+			,  ADDR_2_CTNTS AS ADDR_2_CTNTS		/*주소2내용*/
 			, MEMO_CTNTS															/*메모*/
 			, LATI																	/*위도*/
 			, LONGI																	/*경도*/
@@ -178,7 +178,7 @@
 					AND custTB.ITG_CUST_NO = #{itgCustNo}
 				</if>
 				<if test="mphonNo != null and mphonNo != ''">
-					AND custTB.MPHON_NO = DAMO.ENCRYPT_VAR_B64('AES_256', #{mphonNo}, '')
+					AND custTB.MPHON_NO = #{mphonNo}
 				</if>
 			) rnkTB
 			WHERE RNK = 1

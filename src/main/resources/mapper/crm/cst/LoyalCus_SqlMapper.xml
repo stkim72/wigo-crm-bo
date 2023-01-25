@@ -427,8 +427,8 @@
                     , A.GNDR_CD                    /*성별코드        */
                     , A.BIRTHDAY                    /*생년월일        */
                     --, '010-****-' || A.MPHON_BK_DGT_NO MPHON_NO                    /*이동전화번호        */
-                    , DAMO.DECRYPT_VAR_B64('AES_256',A.MPHON_NO,'') MPHON_NO                    /*이동전화번호        */
-                    , DAMO.DECRYPT_VAR_B64('AES_256',A.EMAIL_ADDR,'') EMAIL_ADDR                    /*이메일주소        */
+                    , A.MPHON_NO MPHON_NO                    /*이동전화번호        */
+                    , A.EMAIL_ADDR EMAIL_ADDR                    /*이메일주소        */
                     , (SELECT STOR_NM FROM CRM_STOR_BAS WHERE STOR_NO = A.RCMD_STOR_NO ) AS STOR_NM                    /*가입매장명        */
                     , A.RCMD_STOR_NO                      /*가입매장번호        */
                     , A.CUST_STATUS_CD                    /*고객상태코드        */
@@ -463,8 +463,8 @@
                     , A.GNDR_CD                    /*성별코드        */
                     , A.BIRTHDAY                    /*생년월일        */
                     --, '010-****-' || A.MPHON_BK_DGT_NO MPHON_NO                    /*이동전화번호        */
-                    , DAMO.DECRYPT_VAR_B64('AES_256',A.MPHON_NO,'') MPHON_NO                    /*이동전화번호        */
-                    , DAMO.DECRYPT_VAR_B64('AES_256',A.EMAIL_ADDR,'') EMAIL_ADDR                    /*이메일주소        */
+                    , A.MPHON_NO MPHON_NO                    /*이동전화번호        */
+                    , A.EMAIL_ADDR EMAIL_ADDR                    /*이메일주소        */
                     , (SELECT STOR_NM FROM CRM_STOR_BAS WHERE STOR_NO = A.RCMD_STOR_NO ) AS STOR_NM                    /*가입매장명        */
                     , A.RCMD_STOR_NO                      /*가입매장번호        */
                     , A.CUST_STATUS_CD                    /*고객상태코드        */

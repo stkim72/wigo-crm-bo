@@ -76,36 +76,35 @@
 <!-- 				<li> -->
 <!-- 					<a href="/static/crm/filelist.html" target="_blank" class="dep1">퍼블리싱</a> -->
 <!-- 				</li> -->
-				<li>
-                    <a href="#;" class="dep1">BI</a>
-                        <div class="dep2">
-                            <ul>
-                                <li>
-                                    <strong class="tit" data-click="goMstr">정형분석</strong>
-                                    <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&Project=CERAGEM&Port=31341&evt=3140&src=mstrWeb.3140&documentID=10BFDEA56F4057C43802D19B47912A09&share=1&uid=ceraview&pwd=ceragem1234"  >회원 분석</a></div>
-                                    <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&Project=CERAGEM&Port=31341&evt=3140&src=mstrWeb.3140&documentID=D572C494B04DE3A47ED0E69DBD2FF00E&share=1&uid=ceraview&pwd=ceragem1234"  >체험 분석</a></div>
-                                    <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&Project=CERAGEM&Port=31341&evt=3140&src=mstrWeb.3140&documentID=6F5187EB7A4E6761EA3BDF89FE72CFD3&share=1&uid=ceraview&pwd=ceragem1234"  >포인트 분석(향후사용)</a></div>
-                                    <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&Project=CERAGEM&Port=31341&evt=3140&src=mstrWeb.3140&documentID=283292D6E54BFE8CF5ECA1A7ABA83B38&share=1&uid=ceraview&pwd=ceragem1234"  >구매 분석</a></div>
-                                    <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&Project=CERAGEM&Port=31341&evt=3140&src=mstrWeb.3140&documentID=B972C003EC4B7E33B4057AB9B5AF1834&share=1&uid=ceraview&pwd=ceragem1234"  >추천인 분석(향후사용)</a></div>
-                                </li>
-                                <li>
-                                    <strong class="tit" data-click="goMstr">비정형분석</strong>
-                                    <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&evt=3005&src=mstrWeb.3005&reportViewMode=1&reportID=62B36A934CF9871DDAB86484C8C72101&Project=CERAGEM&Port=31341&share=1&uid=ceraview&pwd=ceragem1234"  >회원 분석</a></div>
-                                    <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&evt=3005&src=mstrWeb.3005&reportViewMode=1&reportID=CC530CB448878A14A4D778AF66C53BA3&Project=CERAGEM&Port=31341&share=1&uid=ceraview&pwd=ceragem1234"  >스탬프 분석</a></div>
-                                    <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&evt=3005&src=mstrWeb.3005&reportViewMode=1&reportID=995BDB9947938F32134BEF96891D4FB6&Project=CERAGEM&Port=31341&share=1&uid=ceraview&pwd=ceragem1234"  >포인트 분석(향후사용)</a></div>
-                                    <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&evt=3005&src=mstrWeb.3005&reportViewMode=1&reportID=BEC912FF43F4190F34DEA6AF795D989D&Project=CERAGEM&Port=31341&share=1&uid=ceraview&pwd=ceragem1234"  >쿠폰 분석</a></div>
-                                    <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&evt=3005&src=mstrWeb.3005&reportViewMode=1&reportID=1398FCC345A2EA64F3ADCEBB854830DB&Project=CERAGEM&Port=31341&share=1&uid=ceraview&pwd=ceragem1234"  >체험 분석</a></div>
-                                    <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&evt=3005&src=mstrWeb.3005&reportViewMode=1&reportID=B20F2D7A4C6F417792D0049A6404AB3A&Project=CERAGEM&Port=31341&share=1&uid=ceraview&pwd=ceragem1234"  >구매 분석</a></div>
-                                    <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&evt=3005&src=mstrWeb.3005&reportViewMode=1&reportID=938D8CD2415B8311190A788E877BABBE&Project=CERAGEM&Port=31341&share=1&uid=ceraview&pwd=ceragem1234"  >캠페인 분석(향후사용)</a></div>
+<!-- 				<li> -->
+<!--                     <a href="#;" class="dep1">BI</a> -->
+<!--                         <div class="dep2"> -->
+<!--                             <ul> -->
+<!--                                 <li> -->
+<!--                                     <strong class="tit" data-click="goMstr">정형분석</strong> -->
+<%--                                     <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&Project=CERAGEM&Port=31341&evt=3140&src=mstrWeb.3140&documentID=10BFDEA56F4057C43802D19B47912A09&share=1&uid=ceraview&pwd=ceragem1234"  >회원 분석</a></div> --%>
+<%--                                     <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&Project=CERAGEM&Port=31341&evt=3140&src=mstrWeb.3140&documentID=D572C494B04DE3A47ED0E69DBD2FF00E&share=1&uid=ceraview&pwd=ceragem1234"  >체험 분석</a></div> --%>
+<%--                                     <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&Project=CERAGEM&Port=31341&evt=3140&src=mstrWeb.3140&documentID=6F5187EB7A4E6761EA3BDF89FE72CFD3&share=1&uid=ceraview&pwd=ceragem1234"  >포인트 분석(향후사용)</a></div> --%>
+<%--                                     <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&Project=CERAGEM&Port=31341&evt=3140&src=mstrWeb.3140&documentID=283292D6E54BFE8CF5ECA1A7ABA83B38&share=1&uid=ceraview&pwd=ceragem1234"  >구매 분석</a></div> --%>
+<%--                                     <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&Project=CERAGEM&Port=31341&evt=3140&src=mstrWeb.3140&documentID=B972C003EC4B7E33B4057AB9B5AF1834&share=1&uid=ceraview&pwd=ceragem1234"  >추천인 분석(향후사용)</a></div> --%>
+<!--                                 </li> -->
+<!--                                 <li> -->
+<!--                                     <strong class="tit" data-click="goMstr">비정형분석</strong> -->
+<%--                                     <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&evt=3005&src=mstrWeb.3005&reportViewMode=1&reportID=62B36A934CF9871DDAB86484C8C72101&Project=CERAGEM&Port=31341&share=1&uid=ceraview&pwd=ceragem1234"  >회원 분석</a></div> --%>
+<%--                                     <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&evt=3005&src=mstrWeb.3005&reportViewMode=1&reportID=CC530CB448878A14A4D778AF66C53BA3&Project=CERAGEM&Port=31341&share=1&uid=ceraview&pwd=ceragem1234"  >스탬프 분석</a></div> --%>
+<%--                                     <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&evt=3005&src=mstrWeb.3005&reportViewMode=1&reportID=995BDB9947938F32134BEF96891D4FB6&Project=CERAGEM&Port=31341&share=1&uid=ceraview&pwd=ceragem1234"  >포인트 분석(향후사용)</a></div> --%>
+<%--                                     <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&evt=3005&src=mstrWeb.3005&reportViewMode=1&reportID=BEC912FF43F4190F34DEA6AF795D989D&Project=CERAGEM&Port=31341&share=1&uid=ceraview&pwd=ceragem1234"  >쿠폰 분석</a></div> --%>
+<%--                                     <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&evt=3005&src=mstrWeb.3005&reportViewMode=1&reportID=1398FCC345A2EA64F3ADCEBB854830DB&Project=CERAGEM&Port=31341&share=1&uid=ceraview&pwd=ceragem1234"  >체험 분석</a></div> --%>
+<%--                                     <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&evt=3005&src=mstrWeb.3005&reportViewMode=1&reportID=B20F2D7A4C6F417792D0049A6404AB3A&Project=CERAGEM&Port=31341&share=1&uid=ceraview&pwd=ceragem1234"  >구매 분석</a></div> --%>
+<%--                                     <div class="ls"><a target="_blank" href="${biUrl }/MicroStrategy/servlet/mstrWeb?Server=${biServer }&evt=3005&src=mstrWeb.3005&reportViewMode=1&reportID=938D8CD2415B8311190A788E877BABBE&Project=CERAGEM&Port=31341&share=1&uid=ceraview&pwd=ceragem1234"  >캠페인 분석(향후사용)</a></div> --%>
                                     
-                                </li>
-                            </ul>
-                        </div>
-<!-- 					<a href="http://dev-bi.ceragem.com/MicroStrategy/servlet/mstrWeb?evt=3140&src=mstrWeb.3140&documentID=E05F0E304A46B37CFCF0FF98B0D53418&Server=GLCMAP01D&Project=CERAGEM&Port=0&share=1&uid=ceragem&pwd=1234" target="_blank" class="dep1">BI</a> -->
-				</li>
-                <li>
-                    <a href="${eonUrl }?USERID=${eonUser }&VTYPE=4" class="dep1" target="_blank">발송</a>
-                </li>
+<!--                                 </li> -->
+<!--                             </ul> -->
+<!--                         </div> -->
+<!-- 				</li> -->
+<!--                 <li> -->
+<%--                     <a href="${eonUrl }?USERID=${eonUser }&VTYPE=4" class="dep1" target="_blank">발송</a> --%>
+<!--                 </li> -->
 			</ul>
 		</div>
 		<!-- //gnb -->
