@@ -2,11 +2,8 @@ package com.ceragem.crm.config;
 
 import java.util.concurrent.TimeUnit;
 
-import org.apache.catalina.Context;
-import org.apache.tomcat.util.scan.StandardJarScanner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -51,15 +48,15 @@ public class WebMVCConfig implements WebMvcConfigurer {
 //	    @Qualifier(value = "apiAuthIntercepter")
 //		private HandlerInterceptor apiAuthIntercepter;
 
-	@Bean
-	public TomcatServletWebServerFactory tomcatFactory() {
-		return new TomcatServletWebServerFactory() {
-			@Override
-			protected void postProcessContext(Context context) {
-				((StandardJarScanner) context.getJarScanner()).setScanManifest(false);
-			}
-		};
-	}
+//	@Bean
+//	public TomcatServletWebServerFactory tomcatFactory() {
+//		return new TomcatServletWebServerFactory() {
+//			@Override
+//			protected void postProcessContext(Context context) {
+//				((StandardJarScanner) context.getJarScanner()).setScanManifest(false);
+//			}
+//		};
+//	}
 
 	// 뷰 세팅1
 	@Bean
