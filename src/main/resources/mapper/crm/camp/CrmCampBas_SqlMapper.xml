@@ -152,7 +152,7 @@
                     , (CASE WHEN A.PRNTS_CAMP_BAS_NO IS NULL THEN '1차' ELSE '2차' END) CAMP_TMS_NM
                      
                     , (SELECT COMN_CD_NM FROM CRM_COMN_CD_BAS B WHERE B.TOP_COMN_CD = 'CM070' and B.COMN_CD = A.RSPN_APPLY_YN ) RSPN_APPLY_YN_NM    /* 반응형 사용유무        */				
-                    , (SELECT Z023_TITLE FROM EON.WSOMZ023 B WHERE   TO_CHAR( B.Z023_SEQ ) = A.DSP_CTNT_TYPE_NO  AND B.Z023_USRID IN ( 'crm_1', 'EONSMSEMTC' ) ) DSP_CTNT_TYPE_NO_NM				
+                    , NULL DSP_CTNT_TYPE_NO_NM				
                     , (SELECT COMN_CD_NM FROM CRM_COMN_CD_BAS B WHERE B.TOP_COMN_CD = 'CM010' and B.COMN_CD = A.CAMP_TYPE_CD ) CAMP_TYPE_CD_NM
                     
                     , (
@@ -169,7 +169,7 @@
           			
           			, 0 AS DR_RSPN_CNT       /* 직접반응수 */
           			, (SELECT COUNT(*) FROM CRM_CUST_BOS_CNTRT_HST WHERE CAMP_BAS_NO = A.CAMP_BAS_NO) AS INDIR_RSPN_CNT    /* 간접반응수 */
-          		 	, DECODE( (SELECT Z023_DUMMY1 FROM EON.WSOMZ023   WHERE  TO_CHAR( Z023_SEQ ) = A.DSP_CTNT_TYPE_NO  AND Z023_USRID IN ( 'crm_1', 'EONSMSEMTC' ) ), '02', 'SMS', '04', 'LMS/MMS', '06', 'BARCODE', '07', 'PUSH' ) SEND_TYPE
+          		 	, NULL SEND_TYPE
           		 	
           			
 		            
@@ -1199,16 +1199,16 @@
 			        ) MSG	
 			        , TO_CHAR( SYSDATE, 'YYYY-MM-DD HH24:MI:SS') K_RESERVETIME
 			        , #{itgCustNo} REV_ID
-			        , C.Z023_BARCODE_TYPE
-			        , C.Z023_BARCODE_WIDTH
-			        , C.Z023_BARCODE_HEIGHT
-			        , C.Z023_BARCODE_POS_X
-			        , C.Z023_BARCODE_POS_Y
-			        , (CASE WHEN C.Z023_BARCODE_TYPE IS NOT NULL THEN '123456789' ELSE NULL END )  BARCODE_VALUE
+			        , NULL Z023_BARCODE_TYPE
+			        , NULL Z023_BARCODE_WIDTH
+			        , NULL Z023_BARCODE_HEIGHT
+			        , NULL Z023_BARCODE_POS_X
+			        , NULL Z023_BARCODE_POS_Y
+			        , NULL  BARCODE_VALUE
 
 			        FROM CRM_CAMP_BAS A
-			        LEFT JOIN EON.WSOMZ023 C ON 1=1   AND C.Z023_USRID IN ( 'crm_1', 'EONSMSEMTC' ) 
-			        AND C.Z023_DUMMY1 != '07' 
+<!-- 			        LEFT JOIN EON.WSOMZ023 C ON 1=1   AND C.Z023_USRID IN ( 'crm_1', 'EONSMSEMTC' )  -->
+<!-- 			        AND C.Z023_DUMMY1 != '07'  -->
 			        
 			        <choose>
                         <when test="z023Group != '' and z023Group != null ">AND C.Z023_GROUP = ${z023Group}</when>
@@ -1219,7 +1219,7 @@
                      
                    <!--   TO_CHAR(C.Z023_SEQ) = A.DSP_CTNT_TYPE_NO -->
 			        WHERE A.CAMP_BAS_NO=#{campBasNo}
-			        AND A.DSP_CTNT_TYPE_NO = C.Z023_SEQ
+<!-- 			        AND A.DSP_CTNT_TYPE_NO = C.Z023_SEQ -->
 			          
     				 <if test=" campBasNo == '' || testSmsNo == '' ">  
     				 	AND 1 = 2
@@ -1315,12 +1315,12 @@
 			        , 'Y' MRKN_YN 
 			        ,  #{itgCustNo}
 			        FROM CRM_CAMP_BAS A
-			        LEFT JOIN EON.WSOMZ023 C ON 1=1   AND C.Z023_DUMMY1 = '07'  AND C.Z023_USRID IN ( 'crm_1', 'EONSMSEMTC' ) 
+<!-- 			        LEFT JOIN EON.WSOMZ023 C ON 1=1   AND C.Z023_DUMMY1 = '07'  AND C.Z023_USRID IN ( 'crm_1', 'EONSMSEMTC' )  -->
 			        
-			         <choose>
-                        <when test="z023Group != '' and z023Group != null ">AND C.Z023_GROUP = ${z023Group}</when>
-                        <otherwise>AND 1 = 2</otherwise>
-                     </choose>
+<!-- 			         <choose> -->
+<!--                         <when test="z023Group != '' and z023Group != null ">AND C.Z023_GROUP = ${z023Group}</when> -->
+<!--                         <otherwise>AND 1 = 2</otherwise> -->
+<!--                      </choose> -->
                      
                     WHERE A.CAMP_BAS_NO=#{campBasNo}
 			         
