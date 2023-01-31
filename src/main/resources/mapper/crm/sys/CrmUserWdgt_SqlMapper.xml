@@ -157,21 +157,22 @@
                   ORDER BY A.COMN_CD_ODRG
     </select>
     <select id="selectCouponList" resultType="EzMap">
-        SELECT /*com.ceragem.crm.sys.dao.CrmUserWdgtDao.selectCouponList*/  A.USE_DT 
+        SELECT /*com.ceragem.crm.sys.dao.CrmUserWdgtDao.selectCouponList*/  A.ORG_DT USE_DT 
              , NVL(B.USE_CNT,0) USE_CNT
              , NVL(C.REG_CNT,0) PUB_CNT
-          FROM ( SELECT TO_CHAR(SYSDATE-8 + LEVEL,'YYYYMMDD') USE_DT 
+          FROM ( SELECT TO_CHAR(TO_DATE('20230125','YYYYMMDD')-8 + LEVEL,'YYYYMMDD') USE_DT 
+                      , TO_CHAR(SYSDATE-8 + LEVEL,'YYYYMMDD') ORG_DT
                    FROM DUAL
                 CONNECT BY 8 > LEVEL) A 
              , ( SELECT COUNT(1) AS USE_CNT  
                       , SUBSTR(USE_DT,1,8) USE_DT
                    FROM CRM_COUPN_PBLS_HST
-                  WHERE USE_DT BETWEEN TO_CHAR(SYSDATE-7,'YYYYMMDD')|| '000000' AND TO_CHAR(SYSDATE,'YYYYMMDD')|| '000000'
+                  WHERE USE_DT BETWEEN TO_CHAR(TO_DATE('20230125','YYYYMMDD')-7,'YYYYMMDD')|| '000000' AND TO_CHAR(TO_DATE('20230125','YYYYMMDD'),'YYYYMMDD')|| '000000'
                     AND COUPN_TYPE_CD NOT IN ('013') 
                   GROUP BY SUBSTR(USE_DT,1,8)) B
              , ( SELECT COUNT(1) AS REG_CNT  
                       , TO_CHAR(TRUNC(REG_DT),'YYYYMMDD') USE_DT FROM CRM_COUPN_PBLS_HST
-                  WHERE REG_DT BETWEEN TRUNC(SYSDATE-7) AND TRUNC(SYSDATE)
+                  WHERE REG_DT BETWEEN TRUNC(TO_DATE('20230125','YYYYMMDD')-7) AND TRUNC(TO_DATE('20230125','YYYYMMDD'))
                     AND COUPN_TYPE_CD NOT IN ('013')
                   GROUP BY TRUNC(REG_DT)) C
          WHERE A.USE_DT = B.USE_DT(+)
@@ -180,23 +181,24 @@
     </select>
     
     <select id="selectMembershipRegList" resultType="EzMap">
-            SELECT /*com.ceragem.crm.sys.dao.CrmUserWdgtDao.selectMembershipRegList*/  A.REG_DT 
+            SELECT /*com.ceragem.crm.sys.dao.CrmUserWdgtDao.selectMembershipRegList*/  A.ORG_DT REG_DT 
                  , NVL(B.REG_CNT,0) REG_CNT
                  , NVL(C.PREV_REG_CNT,0) PREV_REG_CNT
-              FROM ( SELECT TO_CHAR(SYSDATE-8 + LEVEL,'YYYYMMDD') REG_DT 
-                     FROM DUAL
+              FROM ( SELECT TO_CHAR(TO_DATE('20230125','YYYYMMDD')-8 + LEVEL,'YYYYMMDD') REG_DT
+                          , TO_CHAR(SYSDATE-8 + LEVEL,'YYYYMMDD') ORG_DT 
+                       FROM DUAL
                    CONNECT BY LEVEL <![CDATA[<]]> 8) A 
                  , ( SELECT COUNT(1) REG_CNT
                           , TO_CHAR(TRUNC(MSHIP_SBSC_DT),'YYYYMMDD') REG_DT
                        FROM CRM_CUST_BAS
                       WHERE MSHIP_SBSC_YN = 'Y'
-                        AND MSHIP_SBSC_DT BETWEEN TRUNC(SYSDATE-7) AND TRUNC(SYSDATE)  
+                        AND MSHIP_SBSC_DT BETWEEN TRUNC(TO_DATE('20230125','YYYYMMDD')-7) AND TRUNC(TO_DATE('20230125','YYYYMMDD'))  
                       GROUP BY TRUNC(MSHIP_SBSC_DT)) B
                  , ( SELECT COUNT(1) PREV_REG_CNT
                           , TO_CHAR(TRUNC(MSHIP_SBSC_DT)+7,'YYYYMMDD') PREV_REG_DT
                        FROM CRM_CUST_BAS
                       WHERE MSHIP_SBSC_YN = 'Y'
-                        AND MSHIP_SBSC_DT BETWEEN TRUNC(SYSDATE-7-7) AND TRUNC(SYSDATE-7)  
+                        AND MSHIP_SBSC_DT BETWEEN TRUNC(TO_DATE('20230125','YYYYMMDD')-7-7) AND TRUNC(TO_DATE('20230125','YYYYMMDD')-7)  
                       GROUP BY TRUNC(MSHIP_SBSC_DT)) C
              WHERE A.REG_DT = B.REG_DT(+)
                AND A.REG_DT = C.PREV_REG_DT(+)
@@ -223,12 +225,12 @@
                                  , ( SELECT COUNT(1) REG_CNT
                                           , REG_CHL_CD CHL_CD
                                        FROM CRM_CUST_BAS
-                                      WHERE REG_DT BETWEEN TRUNC(SYSDATE-7) AND TRUNC(SYSDATE)  
+                                      WHERE REG_DT BETWEEN TRUNC(TO_DATE('20230125','YYYYMMDD')-7) AND TRUNC(TO_DATE('20230125','YYYYMMDD'))  
                                       GROUP BY REG_CHL_CD) B
                                  , (  SELECT COUNT(1) PREV_REG_CNT
                                           , REG_CHL_CD CHL_CD
                                        FROM CRM_CUST_BAS
-                                      WHERE REG_DT BETWEEN TRUNC(SYSDATE-7-7) AND TRUNC(SYSDATE-7)  
+                                      WHERE REG_DT BETWEEN TRUNC(TO_DATE('20230125','YYYYMMDD')-7-7) AND TRUNC(TO_DATE('20230125','YYYYMMDD')-7)  
                                       GROUP BY REG_CHL_CD ) C
                              WHERE A.CHL_CD = B.CHL_CD(+)
                                AND A.CHL_CD = C.CHL_CD(+) ) A 
@@ -239,16 +241,17 @@
     
     
     <select id="selectOrdList" resultType="EzMap">
-               SELECT  /*com.ceragem.crm.sys.dao.CrmUserWdgtDao.selectOrdList*/ A.ORD_DE
+               SELECT  /*com.ceragem.crm.sys.dao.CrmUserWdgtDao.selectOrdList*/ A.ORG_DE ORD_DE
                     , NVL(B.ORD_CNT,0) ORD_CNT
                     , NVL(C.PREV_ORD_CNT,0) PREV_ORD_CNT
-                 FROM ( SELECT TO_CHAR(SYSDATE-8 + LEVEL,'YYYYMMDD') ORD_DE 
+                 FROM ( SELECT TO_CHAR(TO_DATE('20230125','YYYYMMDD')-8 + LEVEL,'YYYYMMDD') ORD_DE 
+                 			 , TO_CHAR(SYSDATE-8 + LEVEL,'YYYYMMDD') ORG_DE
                          FROM DUAL
                        CONNECT BY LEVEL <![CDATA[<]]> 8) A 
                     , (SELECT COUNT(1) ORD_CNT
                             , ORD_DE 
                          FROM CRM_CUST_BOS_CNTRT_HST
-                        WHERE ORD_DE BETWEEN TO_CHAR(SYSDATE-7,'YYYYMMDD')  AND TO_CHAR(SYSDATE-1,'YYYYMMDD')
+                        WHERE ORD_DE BETWEEN TO_CHAR(TO_DATE('20230125','YYYYMMDD')-7,'YYYYMMDD')  AND TO_CHAR(TO_DATE('20230125','YYYYMMDD')-1,'YYYYMMDD')
                           AND ITEM_TY_CD IN ( '1100', '2100', '2200', '9500', '9700')
                           AND SALE_TY_CD != '1202'
                           AND ORD_STS_CD != '99'
@@ -256,7 +259,7 @@
                     , (SELECT COUNT(1) PREV_ORD_CNT
                             , TO_CHAR(TO_DATE(ORD_DE,'YYYYMMDD') + 7 ,'YYYYMMDD') ORD_DE 
                          FROM CRM_CUST_BOS_CNTRT_HST
-                        WHERE ORD_DE BETWEEN TO_CHAR(SYSDATE-7-7,'YYYYMMDD')  AND TO_CHAR(SYSDATE-1-7,'YYYYMMDD')
+                        WHERE ORD_DE BETWEEN TO_CHAR(TO_DATE('20230125','YYYYMMDD')-7-7,'YYYYMMDD')  AND TO_CHAR(TO_DATE('20230125','YYYYMMDD')-1-7,'YYYYMMDD')
                           AND ITEM_TY_CD IN ( '1100', '2100', '2200', '9500', '9700')
                           AND SALE_TY_CD != '1202'
                           AND ORD_STS_CD != '99'
