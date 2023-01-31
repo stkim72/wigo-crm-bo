@@ -49,7 +49,7 @@ public class CrmCustBosCntrtHstService extends AbstractCrmService {
 	// 파라미터 
 	// CRM고객번호
 	// 계약번호	
-//	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	public Map<String, String> get(String cntrNo) throws Exception {
 		BosContractVo vo = bosApiService.getContractDtl(cntrNo);
 		Map<String, String> testMap = BeanUtils.describe(vo);
