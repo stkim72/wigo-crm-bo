@@ -233,16 +233,7 @@
                                     <span class="cn"><em id="nowByte">0</em>/ <span id="maxByte">2000Byte</span></span> -->
                                 </div>
                                 <div class="txt"  style="width:98%; height:612px;">
-                                   <!--  (광고) ㈜세라젬 
-                                    <br><strong>홍길동</strong> 회원명님 안녕하세요.  
-
-                                    세라젬 회원에 가입하시면 <strong>30%할인쿠폰</strong>을 제공해 드립니다.
-
-                                    <ul class="list1">
-                                        <li>가입기간 : 2022.11.01~11.30</li>
-                                        <li>02-293-3939</li>
-                                        <li>무료거부 080-2398-3883</li>
-                                    </ul> -->
+                                   
                                    
                                   <div style="width:50%; height:312px;background:#ffffff;display:none" id="ctnt"> 
                                    <textarea name="tmpltCtnts" id="tmpltCtnts" title="템플릿내용"  readonly class="it data-check" style="width:98%;height:300px;padding:5px;line-height:26px"></textarea>

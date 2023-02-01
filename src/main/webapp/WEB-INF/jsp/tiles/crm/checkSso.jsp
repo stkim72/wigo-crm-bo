@@ -8,7 +8,7 @@
  <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<title>CERAGEM</title>
+	<title>MRCRM</title>
     <script>
     top.location.href = "/login/sso";
     </script>

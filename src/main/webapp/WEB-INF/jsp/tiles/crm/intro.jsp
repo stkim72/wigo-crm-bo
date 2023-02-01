@@ -9,7 +9,7 @@
 <html lang="ko">
 <head>
 
-	<title>CERAGEM</title>
+	<title>MRCRM</title>
 	<tiles:insertTemplate template="header.jsp" />
 </head>
 

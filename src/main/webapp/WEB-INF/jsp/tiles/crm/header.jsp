@@ -17,7 +17,7 @@
 <c:set var="rightBoxHeight4" value="694px" scope="request"/>
 <c:set var="rightBoxHeight5" value="775px" scope="request"/>
 
- <title>세라젬 CRM</title>
+ <title>MRCRM</title>
 <link rel="shortcut icon" href="/static/crm/images/favicon.ico">
 <!-- library -->
 <script type="text/javascript" src="/static/crm/js/jquery-3.6.0.min.js"></script>
